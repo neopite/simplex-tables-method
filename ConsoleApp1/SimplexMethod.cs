@@ -13,9 +13,8 @@ namespace ConsoleApp1
         private int _startCols;
         private List<int> _basisVars;
         private int _allVarsCount;
-        private int[] _zFuncCoeficients;
 
-        public SimplexMethod(double[,] startTable , int[] zFuncCoeficients )
+        public SimplexMethod(double[,] startTable  )
       {
           _basisVars = new List<int>();
           _startTable = startTable;
@@ -23,7 +22,6 @@ namespace ConsoleApp1
           _startCols = startTable.GetLength(1);
           _tableWithAddVars = new double[_startRows, _startCols + _startRows - 1];
           _allVarsCount = _startCols + _startRows - 2;
-          _zFuncCoeficients = zFuncCoeficients;
           FillExtendedArrayByBasisVars();
       }
 
@@ -78,7 +76,6 @@ namespace ConsoleApp1
 
                   for (int col = 0; col < newTable.GetLength(1); col++)
                   {
-                      //table[i, j] - table[i, mainCol] * new_table[mainRow, j];
                       newTable[row, col] = _tableWithAddVars[row, col] -
                                            _tableWithAddVars[row, newCol] * newTable[newRow, col];
                   }
@@ -121,17 +118,6 @@ namespace ConsoleApp1
           table.AddRow(FromDoubleToStringArr(answers));
           table.Write();
 
-      }
-
-      public double GetMax(double [] answers)
-      {
-          double res = 0;
-          for (int itter = 0; itter < _zFuncCoeficients.Length; itter++)
-          {
-              res += _zFuncCoeficients[itter] * answers[itter];
-          }
-
-          return res;
       }
       
       public double[] GetRow(double[,] matrix, int rowNumber)

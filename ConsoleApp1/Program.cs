@@ -15,7 +15,7 @@ namespace ConsoleApp1
         
         static void Main(string[] args)
         {
-            SimplexMethod simplexMethod = new SimplexMethod(table , new int[]{3,5});
+            SimplexMethod simplexMethod = new SimplexMethod(table);
             double[] answer = simplexMethod.CalculateSimplexTable();
             double maxFunctionValue = 3 * answer[1] + 5 * answer[0];
             Console.WriteLine("X2 : " + answer[0]);
